@@ -13,9 +13,9 @@ def committee(paragraph, c):
 def category(paragraph, paragraphs, i, c):
     if paragraph.runs[0].bold and not paragraph.runs[0].underline:
         text = paragraph.text
-        if 'Note' in text:
+        if 'Note:' in text:
             c['note'] = paragraph.text
-        elif 'Chair' in text:
+        elif 'Chair:' in text or 'Co-Chairs:' in text or "Chair and" in text:
             c['chairs'] = []
             index = i
 
@@ -26,7 +26,7 @@ def category(paragraph, paragraphs, i, c):
                 if len(paragraphs[index+1].runs) > 0 and paragraphs[index+1].runs[0].bold:
                     break
                 index += 1
-        elif 'Members' in text:
+        elif 'Members:' in text:
             c['members'] = []
             index = i
 
@@ -37,9 +37,10 @@ def category(paragraph, paragraphs, i, c):
                 if len(paragraphs[index+1].runs) > 0 and paragraphs[index+1].runs[0].bold:
                     break
                 index += 1
-        elif 'Liaison' in text:
-            c['liaison'] = paragraph.text
-        elif 'Alternates' in text:
+        elif 'Liaison:' in text:
+            liaison = " ".join(text.split())
+            c['liaison'] = liaison
+        elif 'Alternates:' in text:
             c['alternates'] = []
             index = i
             while index+1 < len(paragraphs):
@@ -49,7 +50,7 @@ def category(paragraph, paragraphs, i, c):
                 if len(paragraphs[index+1].runs) > 0 and paragraphs[index+1].runs[0].bold:
                     break
                 index += 1
-        elif 'Committee Charge' in text:
+        elif 'Committee Charge:' in text:
             c['charge'] = []
             index = i
             while index+1 < len(paragraphs):
@@ -59,7 +60,6 @@ def category(paragraph, paragraphs, i, c):
                 index += 1
             return True
     return False
-
 
 def run_doc(file_name):
     file_path = os.path.join(os.getcwd(), "input", file_name)
@@ -86,7 +86,7 @@ def run_doc(file_name):
             if end_c:
                 committee_list[committee_index].append({})
                 c_index+=1
-    
+
     file_name = file_name.split(".")[0]
     with open(f'bin/{file_name}.json', 'w') as f:
         json.dump(committee_list, f, indent=4)
