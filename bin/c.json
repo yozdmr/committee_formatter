@@ -76,11 +76,7 @@
                 "Steve Elliott (ECO)",
                 "Jim Friedman (ESP)",
                 "Kelly Brunarski (FIN)",
-                "Jeff Merhout (ISA)",
-                "Tom Farnbacher (MGT)",
-                "Kathy Martin (MKT)",
-                "Jake Matig (FYIC)",
-                ""
+                "Jeff Merhout (ISA)"
             ],
             "charge": [
                 "Committee Charge:",
@@ -620,6 +616,7 @@
         },
         {
             "name": "FSB Educational Experience Committee",
+            "extra": "The FSB Educational Experience Committee will collaborate with the Associate Dean for Educational Excellence to develop, evaluate and work with the FSB academic departments to implement initiatives for enhancing the educational experience we provide to our students.  ",
             "chairs": [
                 "Chair and"
             ],

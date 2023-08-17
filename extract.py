@@ -2,11 +2,16 @@ from docx import Document
 import json
 import os
 
-def committee(paragraph, c):
+def committee(paragraph, paragraphs, index, c):
     if paragraph.runs[0].bold and paragraph.runs[0].underline:
         name = paragraph.text
         name = " ".join(name.split())
         c['name'] = name
+
+        if len(paragraphs[index+2].runs) == 0 or not paragraphs[index+2].runs[0].bold:
+            if paragraphs[index+2].text != "":
+                c['extra'] = paragraphs[index+2].text
+
         return True
     return False
 
@@ -81,7 +86,7 @@ def run_doc(file_name):
                 if 'Ad Hoc' in paragraph.text:
                     committee_index = 1
                     c_index = 0
-            committee(paragraph, curr_c)
+            committee(paragraph, doc.paragraphs, index, curr_c)
             end_c = category(paragraph, doc.paragraphs, index, curr_c)
             if end_c:
                 committee_list[committee_index].append({})

@@ -8,6 +8,9 @@ def write_note(note, f):
     note = note.split(": ")[1]
     f.write(f"<p><strong>Note: </strong>{note}</p>")
 
+def write_extra(extra, f):
+    f.write(f"<p>{extra}</p>")
+
 def write_chairs(chairs, f):
     write_chair = 0
     if chairs[0] == 'Chair and':
@@ -114,6 +117,9 @@ def format_doc(file):
                     # Writes notes
                     if 'note' in c.keys():
                         write_note(c['note'], f)
+                    # Writes extra
+                    if 'extra' in c.keys():
+                        write_extra(c['extra'], f)
                     
                     # Writes the chair, returns -1 if Chair and Liaison are the same
                     write_chair = write_chairs(c['chairs'], f)
