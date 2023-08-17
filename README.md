@@ -41,7 +41,7 @@ Example: The Academic Appeals Committee
     "charge": [
         "Consider academic grievances as outlined in the Student Handbook."
         "The Committee will meet to address its annual charge. Meeting minutes will be taken."
-        "The Committee Chair will provide a summative year-end report of Committee activities to the Associate Dean for Curriculum. This report will be added as a consent item to the agenda of the first faculty meeting of the following academic year.'
+        "The Committee Chair will provide a summative year-end report of Committee activities to the Associate Dean for Curriculum. This report will be added as a consent item to the agenda of the first faculty meeting of the following academic year."
     ]
 }
 ```
