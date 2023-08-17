@@ -1,5 +1,6 @@
 from docx import Document
 import json
+import os
 
 def committee(paragraph, c):
     if paragraph.runs[0].bold and paragraph.runs[0].underline:
@@ -60,7 +61,8 @@ def category(paragraph, paragraphs, i, c):
     return False
 
 
-def run_doc(file_path):
+def run_doc(file_name):
+    file_path = os.path.join(os.getcwd(), "input", file_name)
     doc = Document(file_path)
     committee_list = [
         [{}],
@@ -85,7 +87,8 @@ def run_doc(file_path):
                 committee_list[committee_index].append({})
                 c_index+=1
     
-    with open('bin/committee_list.json', 'w') as f:
+    file_name = file_name.split(".")[0]
+    with open(f'bin/{file_name}.json', 'w') as f:
         json.dump(committee_list, f, indent=4)
     
     return committee_list

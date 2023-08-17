@@ -66,7 +66,9 @@ def write_charge(charge, f):
 
         if c != "" and c != "Committee Charge:":
             if ": " in c:
+                print(f"A|{c}|")
                 c = c.split(": ")[1]
+                print(f"B|{c}|")
             if '\t' in d or d[:4] == 'Dean':
                 f.write(f"<li>{c} {d}</li>\n")
                 i+=1
@@ -76,69 +78,35 @@ def write_charge(charge, f):
             
     f.write("</ol>\n")
 
-data = json.load(open('bin/committee_list.json'))
 
-switch = True
-with open("bin/code.html", "w") as f:
-    for i in range(2):
-        print(i)
-        if i == 1 and switch:
-            f.write("\n\n\n<br><br>Ad Hoc Committees<br><br>\n")
-            switch = False
+def format_doc(file):
+    file_name = file.split(".")[0]
+    data = json.load(open(f'bin/{file_name}.json'))
 
-        for c in data[i]:
-            if len(c.keys()) > 0:
-                f.write(f"\n-----|| {c['name']} ||-----\n")
-                write_chair = write_chairs(c['chairs'], f)
+    switch = True
+    with open(f"output/result_{file_name}.html", "w") as f:
+        for i in range(2):
+            if i == 1 and switch:
+                f.write("\n\n\n<br><br>Ad Hoc Committees<br><br>\n")
+                switch = False
 
-                if 'liaison' in c.keys():
-                    write_liaison(c['liaison'], f, write_chair)
-                
-                if 'members' in c.keys():
-                    write_members(c['members'], f)
-                
-                if 'alternates' in c.keys():
-                    write_alternates(c['alternates'], f)
+            for c in data[i]:
+                if len(c.keys()) > 0:
+                    f.write(f"\n-----|| {c['name']} ||-----\n")
+                    write_chair = write_chairs(c['chairs'], f)
 
-                write_charge(c['charge'], f)
+                    if 'liaison' in c.keys():
+                        write_liaison(c['liaison'], f, write_chair)
+                    
+                    if 'members' in c.keys():
+                        write_members(c['members'], f)
+                    
+                    if 'alternates' in c.keys():
+                        write_alternates(c['alternates'], f)
 
-
-                f.write("\n---------------------------<br>\n")
-
-f.close()
+                    write_charge(c['charge'], f)
 
 
+                    f.write("\n---------------------------<br>\n")
 
-'''
-
-<p><strong>Chair</strong></p>
-<p>Matthew Wieland (ACC) (2023)</p>
-<p><strong>Dean's Liaison</strong></p>
-<p>Chanelle White</p>
-<p><strong>Members</strong></p>
-<ul>
-<li>EJ Ume (ECO) (2025)</li>
-<li>David Gempesaw (FIN) (2025)</li>
-<li>Mark Lacker (ESP) (2023)</li>
-<li>John Ni (MGT) (2025)</li>
-<li>Pat Schur (ISA) (2024)</li>
-<li>Peter Nguyen (MKT) (2025)</li>
-</ul>
-<p><strong>Alternates</strong></p>
-<ul>
-<li>James Zhang (ACC) (2025)</li>
-<li>Nam Vu (ECO) (2025)</li>
-<li>Geoff Zoeckler (ESP) (2025)</li>
-<li>Yvette Harman (FIN) (2025)</li>
-<li>Michael Gowins (ISA) (2025)</li>
-<li>Darryl Rice (MGT) (2025)</li>
-<li>Eric Stenstrom (MGT) (2025)</li>
-</ul>
-<p><strong>Committee Charge</strong></p>
-<ol>
-<li>Consider academic grievances as outlined in the Student Handbook.</li>
-<li>The Committee will meet to address its annual charge. Meeting minutes will be taken.</li>
-<li>The Committee Chair will provide a summative year-end report of Committee activities to the Associate Dean for Curriculum. This report will be added as a consent item to the agenda of the first faculty meeting of the following academic year.</li>
-</ol>
-
-'''
+    f.close()

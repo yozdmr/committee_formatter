@@ -1,6 +1,15 @@
 # Explanation
 This project contains a python app that takes a `.docx` file containing information about the Farmer School Committees as input and produces HTML code used to update the [Farmer School Committees webpage](https://miamioh.edu/fsb/info-faculty-staff/committees.html) as output.
 
+## Setup
+This project uses `Python 3.11`. You can download it [here](https://www.python.org/downloads/release/python-3110/).
+
+Install the Python libraries listed in the `requirements.txt` file.
+
+
+## How to Use
+Put your `.docx` file in the `input/` directory. Run the `app.py` file, and specify the name of the file you want to format. The output is `result_{file_name}.html` in the `output/` directory. The JSON file storing the formatted data is in the `bin/` directory.
+
 ### The Input
 The input must be formatted exactly as follows:
 - The Committee categories must be **bold** and in *italics*.
